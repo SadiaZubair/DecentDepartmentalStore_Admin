@@ -1,0 +1,20 @@
+.product-img{
+
+    text-align: center;
+    margin-bottom: 20px;
+    margin-left:10px;
+    padding: 30px;
+    border: 2px groove;
+    
+}
+.product-titles{
+    margin-top: 10px;
+}
+.product-container{
+    display: grid;
+    grid-template: 1fr/ 4fr 1fr;
+}
+.product-contain{
+    grid-template-columns: 1;
+    grid-template-rows: 1/-1;
+}
