@@ -85,7 +85,7 @@ const Categories = () => {
 
 
 		}
- 
+   
     useEffect(() => {
    
       
@@ -93,7 +93,7 @@ const Categories = () => {
       
       
     },[]);
-   
+   console.log('lol');
     const addProduct = (e) => {
           e.preventDefault();
           history.push("/Add Category")
@@ -101,6 +101,7 @@ const Categories = () => {
    
     return(
        <>
+       
         <div className="list-style">
         <ListGroup  variant="flush">
         {/* <div className="order" > */}
@@ -115,8 +116,8 @@ const Categories = () => {
             {arr}
             </div> 
           <DropdownButton className="yuk" alignSelf='right' id="dropdown-item-button" variant="light">
-            <Dropdown.Item  href={"/Categories/"+arr} >Edit Subcategories</Dropdown.Item>
-            <div>
+            <Dropdown.Item  href={"/Categories/"+arr} >View Subcategories</Dropdown.Item>
+            {/* <div>
             <Dropdown.Item as="button" onClick={handleClickOpen}>Delete Category</Dropdown.Item>
             <Dialog
                 open={open}
@@ -139,7 +140,7 @@ const Categories = () => {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </div>
+            </div> */}
             <div>
             <Dropdown.Item as="button" onClick={handleClickOpen1}>Rename</Dropdown.Item>
               <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
@@ -150,8 +151,8 @@ const Categories = () => {
                   </DialogContentText>
                   {/* <TextField */}
                 {/* //   make this text box responsive */}
-                {/* <TextField id="outlined-basic" label="Admin" variant="outlined" /> */}
-                <BasicTextFieldsrenamecat/>
+                <TextField id="outlined-basic" label="Category" variant="outlined" />
+                {/* <BasicTextFieldsrenamecat/> */}
                     {/* autoFocus
                     margin="dense"
                     id="name"
