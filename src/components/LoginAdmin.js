@@ -98,68 +98,55 @@ const [user, setUser]= useState('')
     setPassword('');
   }
   
-  const authListener=()=> {
-
-    fire.auth().onAuthStateChanged(user=>{
-      if (user){
-        
-        clearInputs();
-        setUser(user);
-        var db=fire.firestore();
-        const usersRef = db.collection('adminacc').doc(user.uid)
-        usersRef.get()
-        .then((docSnapshot) => {
-        if (docSnapshot.exists) {
-         usersRef.onSnapshot((doc) => {
-          // routeChange('')
-          });
-        } else {
-          setEmailerror("You are not an admin! Huh!")
-          fire.auth().signOut().then(() => {
-          
-          }).catch((error) => {
-  // An error happened.
-          });
-          
-          return
-        }
-      });
-
-        
-
-        
-        }
-        else{
-        setUser(false);
-        
-        }
-      
-    });
-  };
   
 
-  useEffect(()=> {
-    authListener();
-  }, []);
-
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
     setEmailerror("")
-    fire
+    var db=fire.firestore();
+		const citiesRef = db.collection('adminacc');
+		const snapshot = await citiesRef.get();
+		if (snapshot.empty) {
+  		console.log('No matching documents.');
+  		return;
+		}  
+		snapshot.forEach(doc => {
+  		if (doc.data().email==email)
+      {
+        console.log(doc.data().email)
+        console.log(email)
+        fire
     .auth()
     .signInWithEmailAndPassword(email, password)
     .catch(err=> {
       switch(err.code){
         case "auth/invalid-email":
-        case "auth/user-disabled":
-        case "auth/user-not-found":
-          setEmailerror(err.message);
+          setEmailerror('Invalid Email');
           break;
+        case "auth/user-disabled":
+          setEmailerror('User not found');
+          break;
+        case "auth/user-not-found":
+          setEmailerror('User not found');
+          break;
+          
+         
         case "auth/wrong-password":
-          setPassworderror(err.message);
+          setPassworderror('Incorrect Passowrd');
           break;
       }
     });
+
+      }
+      else
+      {
+        setEmailerror('Admin not found')
+        return;
+      }
+  			
+    });
+
+    
 
     
 
@@ -187,13 +174,14 @@ const [user, setUser]= useState('')
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
-            variant="outlined"
+            
             margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
             name="email"
+            labelWidth={125}
             value={email}
             onChange={(e)=>setEmail(e.target.value)}
             
@@ -202,10 +190,10 @@ const [user, setUser]= useState('')
             autoComplete="email"
             autoFocus
           />
-          <p className="errorMsg"> {emailError}</p>
+          <p className="errorMsg" style = {{color: "red",fontSize: "12px"}}> {emailError}</p>
        
           <TextField
-            variant="outlined"
+            
             margin="normal"
             required
             fullWidth
@@ -213,11 +201,12 @@ const [user, setUser]= useState('')
             label="Password"
             type="password"
             id="password"
+            labelWidth={125}
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
 
           />
-          <p className="errorMsg"> {passwordError}</p>
+          <p  className="errorMsg" style = {{color: "red", fontSize: "12px"}}> {passwordError}</p>
        
           <Button
             type="submit"
