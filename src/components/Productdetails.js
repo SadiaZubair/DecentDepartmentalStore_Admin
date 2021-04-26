@@ -1,10 +1,9 @@
 
 
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 import React, { useState,useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup'
-import coffee from "./images/coffee.jpg";
-import cocomo from "./images/cocomo.jpg";
+
 import Figure from 'react-bootstrap/Figure';
 import  FigureCaption from 'react-bootstrap/Figure';
 import FigureImage from 'react-bootstrap/Figure';
@@ -55,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Productdetails = ({match}) => {
+  let history=useHistory()
   let id=match.params.id;
   const [discount, setDiscount]=useState(0);
   const [cat, setCat] = React.useState('');
@@ -146,8 +146,12 @@ const Productdetails = ({match}) => {
     },[]);
   const saveChanges = (e) => {
     e.preventDefault();
-    
-
+    if(cat=='' ||subcat==''|| discount==''|| values.title==''|| values.description==''|| values.stock==''||values.price=='')
+    {
+      window.alert('Required fields are missing')
+    }
+    else
+    {
     var db=fire.firestore();
     db.collection("Products").doc(id).update({
       title: values.title,
@@ -164,6 +168,7 @@ const Productdetails = ({match}) => {
       window.alert("error1",error.message)
       return;
     });
+  }
   }
    
     const handleChangediscount=(value)=>{
@@ -194,6 +199,9 @@ const Productdetails = ({match}) => {
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
+    const cancel=(e)=>{
+      history.push('/Products')
+    }
     
     return(
        <>
@@ -221,6 +229,7 @@ const Productdetails = ({match}) => {
           <FilledInput
             id="filled-adornment-amount"
             value={values.title}
+            required
             onChange={handleChange('title')}
             multiline
             // disabled='true'
@@ -238,6 +247,7 @@ const Productdetails = ({match}) => {
           <FilledInput
             id="filled-adornment-amount"
             value={values.description}
+            required
             onChange={handleChange('description')}
             multiline
             // disabled='true'
@@ -253,6 +263,7 @@ const Productdetails = ({match}) => {
       <TextField
         id="filled-select-currency"
         select
+        required
         label="Category"
         value={cat}
         onChange={(e)=>{setCat(e.target.value); searchSubcat(e.target.value); }}
@@ -273,6 +284,7 @@ const Productdetails = ({match}) => {
       <TextField
         id="filled-select-currency"
         select
+        required
         label="Subcategory"
         value={subcat}
         onChange={(e)=>setSubcat(e.target.value)}
@@ -297,6 +309,7 @@ const Productdetails = ({match}) => {
           id="filled-start-adornment"
           // disabled='true'
           type="number"
+          required
           value={values.stock}
           onChange={handleChange('stock')}
           style={{marginRight:'20px', width:'39ch'}}
@@ -313,6 +326,7 @@ const Productdetails = ({match}) => {
           id="filled-start-adornment"
           // disabled='true'
           type="number"
+          required
           value={values.price}
           onChange={handleChange('price')}
           style={{ marginRight:'20px', width:'39ch'}}
@@ -328,6 +342,7 @@ const Productdetails = ({match}) => {
           // disabled='true'
           type="number"
           value={discount}
+          required
           onChange={(e)=>handleChangediscount(e.target.value)}
           style={{  width:'39ch'}}
           className={clsx(classes.margin, classes.textField)}
@@ -342,7 +357,7 @@ const Productdetails = ({match}) => {
       </div>
       <ListGroup horizontal > 
         
-      <button type="button" style={{backgroundColor: '#0277BD',marginTop:'10%', marginRight:'10%', height:'fit-content', color: '#FFFFFF', width: '150px'}} className={classes.thecolor} class="btn back-color rounded-pill">Cancel</button>
+      <button type="button" style={{backgroundColor: '#0277BD',marginTop:'10%', marginRight:'10%', height:'fit-content', color: '#FFFFFF', width: '150px'}} onClick={(e)=> cancel(e)} className={classes.thecolor} class="btn back-color rounded-pill">Cancel</button>
       <button type="button"  onClick={(e)=>saveChanges(e)}style={{backgroundColor: '#0277BD',marginTop:'10%', height:'fit-content', color: '#FFFFFF', width: '150px'}} className={classes.thecolor} class="btn back-color rounded-pill">Save Changes</button>
         
         <Snackbar
