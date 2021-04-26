@@ -87,6 +87,7 @@ const Subcategories = ({match}) => {
    
     return(
        <>
+        
         <div className="list-style">
         <ListGroup  variant="flush">
         {/* <div className="order" > */}
@@ -100,8 +101,8 @@ const Subcategories = ({match}) => {
             {menu}
             </div> 
           <DropdownButton className="yuk" alignSelf='right' id="dropdown-item-button" variant="light">
-            <Dropdown.Item  href={"/Categories/"+category+"/"+menu} >Edit Products</Dropdown.Item>
-            <div>
+            <Dropdown.Item  href={"/Categories/"+category+"/"+menu} >View Products</Dropdown.Item>
+            {/* <div>
             <Dropdown.Item as="button" onClick={handleClickOpen}>Delete Subcategory</Dropdown.Item>
             <Dialog
                 open={open}
@@ -124,7 +125,7 @@ const Subcategories = ({match}) => {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </div>
+            </div> */}
             <div>
             <Dropdown.Item as="button" onClick={handleClickOpen1}>Rename</Dropdown.Item>
               <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
@@ -132,12 +133,11 @@ const Subcategories = ({match}) => {
                 <DialogContent>
                   <DialogContentText>
                    Name
-                  </DialogContentText>
-                  {/* <TextField */}
-                {/* //   make this text box responsive */}
-                {/* <TextField id="outlined-basic" label="Admin" variant="outlined" /> */}
-                <BasicTextFieldsrenamesubcat/>
-                    {/* autoFocus
+                  </DialogContentText> 
+                
+                  <TextField id="outlined-basic" label="Subcategory" variant="outlined" /> 
+                {/* <BasicTextFieldsrenamesubcat
+                     autoFocus
                     margin="dense"
                     id="name"
                     label="Stock"
@@ -145,7 +145,7 @@ const Subcategories = ({match}) => {
                     value={stock}
                     onChange={event=>setStock(event.target.value)}
                     fullWidth
-                  /> */}
+                  />  */}
                 </DialogContent>
                 <DialogActions>
                   <Button backgroundColor='#0277BD'onClick={handleClose1} color="primary">
