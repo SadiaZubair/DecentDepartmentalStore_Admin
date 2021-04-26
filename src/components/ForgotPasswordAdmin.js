@@ -135,7 +135,7 @@ export default function AdminLogin() {
         
         <form className={classes.form} noValidate>
           <TextField
-            variant="outlined"
+          
             margin="normal"
             required
             fullWidth
