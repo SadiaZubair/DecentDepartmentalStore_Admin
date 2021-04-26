@@ -8,7 +8,10 @@ import IconButton from '@material-ui/core/IconButton';
 import UploadButtons from './Uploadbutton';
 import { useState } from "react";
 import fire from "../fire";
+import {useHistory} from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
 
+import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -20,9 +23,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Addcateg() {
-  const [catname, setCatname]=useState();
+  let history=useHistory()
+  const [catname, setCatname]=useState('');
   const classes = useStyles();
+  const [opensnack, setOpensnack] = React.useState(false);
+  const handleClosesnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpensnack(false);
+    history.push('/Categories')
+  };
   const addcat=(category)=>{
+  
+    if(catname =='')
+    {
+     window.alert("Required Fields are missing")
+    }
+    else{
     var db=fire.firestore();
     const usersRef = db.collection('category').doc(category)
     usersRef.get()
@@ -33,14 +52,23 @@ export default function Addcateg() {
           return;
         });
        } else {
-         window.alert("Adding")
+        
+       
       usersRef.set( {
         category: category,
          //noofsub: 0 
       }) // create the document
+      setOpensnack(true);
+    
       }
-    });
 
+    });
+  }
+    
+  
+  }
+  const cancel=(e)=>{
+    history.push('/Categories')
   }
 
   return (
@@ -58,7 +86,7 @@ export default function Addcateg() {
       <div>
         {/* <Row>
           <Col> */}
-          <UploadButtons/>
+          
           {/* </Col> */}
           {/* <Col xs={2}>
         <Typography variant="h6" className={classes.title}>
@@ -68,7 +96,25 @@ export default function Addcateg() {
         {/* </Row> */}
           </div>
       <button type="button" style={{backgroundColor: '#0277BD', color: '#FFFFFF', width: '150px'}} onClick={(e)=>addcat(catname)} className={classes.thecolor} class="btn back-color rounded-pill">Add</button>
-      <button type="button" style={{backgroundColor: '#0277BD', color: '#FFFFFF', width: '150px'}} className={classes.thecolor} class="btn back-color rounded-pill">Cancel</button>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={opensnack}
+        autoHideDuration={6000}
+        onClose={handleClosesnack}
+        message="Category Successfully Added"
+        action={
+          <React.Fragment>
+           
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClosesnack}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+      <button type="button" style={{backgroundColor: '#0277BD', color: '#FFFFFF', width: '150px'}} onClick={(e)=> cancel(e)} className={classes.thecolor} class="btn back-color rounded-pill">Cancel</button>
     </form>
   );
 }
