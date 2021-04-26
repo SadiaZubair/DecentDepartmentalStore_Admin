@@ -1,0 +1,46 @@
+.charts{
+    display: flex;
+    flex-wrap:wrap;
+    flex: row;
+    /* width:100vw;
+    height:100vh;
+    display:grid;
+    grid-template: 1fr 2fr 4fr 3fr/ 1fr; */
+}
+
+.monrev{
+    width:520px;
+   
+}
+.Yearrev{
+    width:600px;
+    height:fit-content;
+}
+.Dough{
+    width:320px;
+   
+}
+.Weekrev{
+ width:520px; 
+ 
+ 
+}.yearlyrev{
+    align-content: center;
+    margin: auto;
+}
+.dough{
+    align-content: center;
+    margin: auto;
+}
+.progressbar{
+   
+    /* grid-row: 1;
+    grid-column: 1/-1; */
+
+}
+.tabs{
+    margin-top:15px;
+   justify-content: center;
+    /* grid-row:2;
+    grid-column: 1/-1; */
+}
