@@ -96,7 +96,8 @@ import Addsubcateg from "./components/Addsubcateg";
 import Viewfinances from "./components/ViewFinancesold";
 import Admindetails from "./components/Admindetails";
 import Catsubcatprod from "./components/Catsubcatprod";
-
+import Catsubcatprodadd from "./components/Catsubcatprodadd";
+import Car from "./components/Car";
 import ResetPassword from "./components/ResetPasswordAdmin";
 //import Signup from "./components/Signup"
 import VerificationCode from "./components/VerficationCodeAdmin"
@@ -105,7 +106,7 @@ import AdminLogin from "./components/LoginAdmin"
 import AdminForgotPassword from "./components/ForgotPasswordAdmin"
 //import AdminVC   from "./components/VerficationCode"
 //mport AdminRP from "./components/ResetPassword"
-import Temp from   "./components/temp"
+
 import fire from './fire'
 
 
@@ -163,18 +164,21 @@ function App() {
     {/* <Route exact path ='/ForgotPassword' component={AdminForgotPassword}/>
     <Route exact path ='/ResetPassword' component={ResetPassword}/>
     <Route exact path ='/Successful' component={Temp}/> */}
+    <Route exact path ='/' component={Car}/>
+    <Route exact path ='/Pending Orders' component={PendingOrders}/>
     <Route exact path ='/Pending Orders' component={PendingOrders}/>
     <Route exact path ='/Pending Orders/:id' component={Pendingdetails}/>
     <Route exact path ='/View Orders' component={Vieworders}/>
     <Route exact path ='/View Orders/:id' component={Viewdetails}/>
     <Route exact path ='/Products' component={Products}/>
-    <Route exact path ='/View Admin' component={ViewAdmin}/>
-    <Route exact path ='/Add Admin' component={Addadmin}/>
+    <Route exact path ='/View Admin' component={Addadmin}/>
+    {/* <Route exact path ='/Add Admin' component={Addadmin}/> */}
     <Route exact path ='/Products/:id' component={Productdetails}/> 
     <Route exact path ='/Add Product' component={Addproduct}/>
     <Route exact path ='/Categories' component={Categories}/>
     <Route exact path ='/Categories/:category' component={Subcategories}/>
     <Route exact path = "/Categories/:category/:subcategory" component={Catsubcatprod}/>
+    {/* <Route exact path = "/Categories/:category/:subcategory/Add Product" component={Catsubcatprodadd}/> */}
     <Route exact path ='/View Products/:id' component={Products}/>
     <Route exact path ='/Add Category' component={Addcateg}/>
     <Route exact path ='/Add Subcategory/:category' component={Addsubcateg}/>

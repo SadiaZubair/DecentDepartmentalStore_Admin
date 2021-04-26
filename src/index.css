@@ -33,7 +33,7 @@ code {
  height:100vh;
  width: 100vw;
  display: grid;
- grid-template: 0.5fr 1fr 7fr  / 1fr 5fr;
+ grid-template: 1fr 1fr 7fr  / 1fr 5fr;
   
 }
 .header{
@@ -49,7 +49,9 @@ code {
 .nav{
   grid-row: 3;
   grid-column: 1;
-  padding: 10px;
+  padding-top:20px;
+  padding-left: 10px;
+  margin-left:20px;
 }
 .content{
   grid-row: 3;
@@ -68,7 +70,7 @@ code {
 .admin-item{
   margin: 10px;
   padding: 6.5px;
-  border-bottom: 1px ridge  ;
+  border-bottom: 1.5px ridge  ;
 }
 .order-title{
   font-size: 11pt;
@@ -86,4 +88,26 @@ code {
 .list-style{
   border:none;
  width: 900px;
+ padding-top: 9px;
 }
+.list-style1{
+  border:none;
+ width: 900px;
+}
+.addproduct{
+  align-content: right;
+}
+.nav-item{
+  margin-right:20px;
+  vertical-align:middle ;
+  height: fit-content;
+}
+.car{
+  margin-top: 20px;
+}
+.adjustSubmit{
+  color:#fff  !important;
+  background-color: #004C8C !important;
+  
+ 
+ }
