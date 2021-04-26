@@ -110,8 +110,22 @@ const Catsubcatprod = ({match}) => {
     setDiscount();
     setStock();
   };
-  const handleCloseConfirmstock = () => {
+  const handleCloseConfirmstock = (e,id) => {
+    e.preventDefault();
+    var db=fire.firestore();
+    db.collection("Products").doc(id).update({
+      
+     
+      stock: stock,
+      
+    }).then(function(){
+    
+    }).catch(function(error){
+      window.alert("error1",error.message)
+      return;
+    });
     setOpenstock(false);
+    window.alert('Stock Updated')
     setDiscount();
     setStock();
   };
@@ -128,8 +142,23 @@ const Catsubcatprod = ({match}) => {
     setDiscount();
     setStock();
   };
-  const handleCloseConfirmdiscount = () => {
+  const handleCloseConfirmdiscount = (e,id) => {
+    
+    e.preventDefault();
+    var db=fire.firestore();
+    db.collection("Products").doc(id).update({
+      
+     
+      discount:discount,
+      
+    }).then(function(){
+    
+    }).catch(function(error){
+      window.alert("error1",error.message)
+      return;
+    });
     setOpendiscount(false);
+    window.alert('Discount Updated')
     setDiscount();
     setStock();
   };
@@ -147,11 +176,12 @@ const Catsubcatprod = ({match}) => {
     
     const addProduct = (e) => {
           e.preventDefault();
-          history.push("/Add Product")
+          history.push('/Add Product')
         };
    
     return(
        <>
+      
         <div className="list-style">
         <ListGroup  variant="flush">
         {/* <div className="order" > */}
@@ -166,7 +196,7 @@ const Catsubcatprod = ({match}) => {
             </div> 
           <DropdownButton className="yuk" alignSelf='right' id="dropdown-item-button" variant="light">
             <Dropdown.Item  href={"/Products/"+menu.id} >View details</Dropdown.Item>
-            <div>
+            {/* <div>
             <Dropdown.Item as="button" onClick={handleClickOpendelete}>Delete Product</Dropdown.Item>
             <Dialog
                 open={opendelete}
@@ -192,7 +222,7 @@ const Catsubcatprod = ({match}) => {
                 </DialogActions>
               </Dialog>
             
-            </div>
+            </div> */}
             <div>
             <Dropdown.Item as="button" onClick={handleClickOpenstock}>Update Stock</Dropdown.Item>
               <Dialog open={openstock} onClose={handleClosestock} aria-labelledby="form-dialog-title">
@@ -216,7 +246,7 @@ const Catsubcatprod = ({match}) => {
                   <Button backgroundColor='#0277BD'onClick={handleClosestock} color="primary">
                     Cancel
                   </Button>
-                  <Button backgroundColor='#0277BD' onClick={handleCloseConfirmstock} color="primary">
+                  <Button backgroundColor='#0277BD' onClick={(e)=>handleCloseConfirmstock(e,menu.id)} color="primary">
                     Confirm
                   </Button>
                 </DialogActions>
@@ -245,7 +275,7 @@ const Catsubcatprod = ({match}) => {
                   <Button backgroundColor='#0277BD'onClick={handleClosediscount} color="primary">
                     Cancel
                   </Button>
-                  <Button backgroundColor='#0277BD' onClick={handleCloseConfirmdiscount} color="primary">
+                  <Button backgroundColor='#0277BD' onClick={(e)=>handleCloseConfirmdiscount(e,menu.id)} color="primary">
                     Confirm
                   </Button>
                 </DialogActions>
